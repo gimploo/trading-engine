@@ -1,8 +1,8 @@
 #include <iostream>
-
+#include "../application/Engine.hpp"
 
 int main(void)
 {
-	std::cout << "Hello world";
-	return 0;
+    TradingEngine::Application::Engine engine;
+    return 0;
 }
