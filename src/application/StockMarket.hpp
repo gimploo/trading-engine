@@ -5,7 +5,7 @@
 namespace TradingEngine::Application {
     class StockMarket: public Interfaces::IMarket {
     public:
-	StockMarket() {}
+	StockMarket() : orderBook(new Entity::OrderBook()) {}
 
 	std::unique_ptr<Entity::OrderBook> orderBook;
 	

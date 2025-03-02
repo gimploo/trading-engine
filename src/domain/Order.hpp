@@ -6,6 +6,7 @@
 
 namespace TradingEngine::Entity {
 
+
     class Order {
 public:
 	explicit Order(
@@ -28,7 +29,7 @@ public:
 	}
 
 private:
-	static std::atomic_uint64_t m_total_orders;
+	inline static uint64_t m_total_orders;
 	uint64_t m_id;
 	OrderType m_type;
 	uint64_t m_quantity;

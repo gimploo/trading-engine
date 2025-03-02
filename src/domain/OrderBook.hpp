@@ -7,6 +7,8 @@
 namespace TradingEngine::Entity {
     class OrderBook {
 public:
+	OrderBook() {}
+
 	void addOrder(const Order& order) {
 	    if (order.getOrderType() == OrderType::BUY) {
 		m_buyOrders.insert({ order.getTotalPrice(), order });
