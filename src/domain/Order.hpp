@@ -1,20 +1,38 @@
 #pragma once
 #include "./OrderType.hpp"
+#include <atomic>
+#include <cassert>
+#include <cstdint>
 
-namespace TradingEngine::Domain::Entity {
+namespace TradingEngine::Entity {
 
     class Order {
-	public:
-	    Order(
-		OrderType type,
-		long int quantity,
-		double price) 
-	    : m_type(type), m_quantity(quantity), m_price(price) { }
+public:
+	explicit Order(
+	    OrderType type,
+	    uint64_t quantity,
+	    double price) 
+	: m_id(m_total_orders++), m_type(type), m_quantity(quantity), m_price(price) 
+	{ 
+	    assert(quantity > 0 && "Order quantity needs to be greater than zero");
+	}
 
-	private:
-	    OrderType m_type;
-	    long int m_quantity;
-	    double m_price;
+	const OrderType getOrderType() const { return m_type; } 
+	const uint64_t getOrderId() const { return m_id; } 
+	const double getTotalPrice() const { return m_quantity * m_price; }
+	const double getPrice() const { return m_price; }
+
+	void setQuantity(const uint64_t newQuantity) {
+	    assert(newQuantity > 0);
+	    m_quantity = newQuantity;
+	}
+
+private:
+	static std::atomic_uint64_t m_total_orders;
+	uint64_t m_id;
+	OrderType m_type;
+	uint64_t m_quantity;
+	double m_price;
     };
 
 }

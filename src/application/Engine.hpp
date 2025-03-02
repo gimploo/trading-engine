@@ -1,15 +1,17 @@
 #pragma once
-#include "../domain/Order.hpp"
+#include "../domain/OrderBook.hpp"
+#include "./interfaces/IMarket.hpp"
+#include <algorithm>
 #include <iostream>
-#include <vector>
+#include <memory>
 
 namespace TradingEngine::Application {
     class Engine {
 	public:
-	    Engine() {
+	    Engine(std::unique_ptr<Interfaces::IMarket> market): m_market(std::move(market)) {
 		std::cout << "Engine started";
 	    }
 	private:
-	    std::vector<TradingEngine::Domain::Entity::Order> orders;
+	    std::unique_ptr<Interfaces::IMarket> m_market;
     };
 }

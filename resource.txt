@@ -1,7 +1,5 @@
-Chatgpt prompt - 
-
-I need your help to guide me into writing my own trading engine in cpp (granted i know C11 very well and not that much of C++20). No code examples are given as to help me get an understanding of the topic or technology. The project must follow clean architecture principles. Also the instruction should include -
+I need your help to guide me into writing my own trading engine in cpp (granted i know C11 very well and not that much of C++20). No code examples are to be given in the instruction that are likely the implementation of the each step but basic examples of C++ feature in the code examples that could possibly help me understand the tech are welcomed just not have those examples be direct implementation of the step . The project must follow clean architecture principles. Also the instruction should include -
 1. C++ feature used 
 2. which Clean architecture principle its following
 3. Business behind it
-Each instruction should be ellaborate enough to give me enough understanding to execute the instruction without any additional prompt to you. Also give one step at a time and have each step be very descriptive in its explanation  of the whys, hows and alternative approaches
+Each instruction should be ellaborate enough to give me enough understanding to execute the instruction without any additional prompt to you. Also give one step at a time and have each step be very descriptive in its explanation  of the whys, hows and alternative approaches. Also the action items to do this step should be listed below and must be descriptive

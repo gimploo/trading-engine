@@ -1,6 +1,6 @@
+#pragma once
 
-
-namespace TradingEngine::Domain::Entity {
+namespace TradingEngine::Entity {
     enum OrderType {
 	BUY = 0,
 	SELL
