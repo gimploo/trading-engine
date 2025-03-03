@@ -1,9 +1,7 @@
 #pragma once
-#include "../domain/OrderBook.hpp"
 #include "./interfaces/IMarket.hpp"
-#include <algorithm>
-#include <iostream>
 #include <memory>
+#include <utility>
 #include <vector>
 
 namespace TradingEngine::Application {
@@ -11,11 +9,11 @@ namespace TradingEngine::Application {
 	public:
 	    Engine(std::unique_ptr<Interfaces::IMarket> market): m_market(std::move(market)) { }
 
-	    void listenForOrders(const std::vector<Entity::Order> orders) 
+	    void listenForOrders(const std::vector<std::pair<std::string, Entity::Order>> &marketOrders) 
 	    {
-		for( auto &order: orders ) 
+		for(const auto &[stock, order]: marketOrders) 
 		{
-		    m_market->routeOrder(std::move(order));
+		    m_market->routeOrder(stock, order);
 		}
 	    }
 	private:

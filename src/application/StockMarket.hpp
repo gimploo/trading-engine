@@ -1,25 +1,36 @@
 #pragma once
 #include "Engine.hpp"
 #include <memory>
+#include <iostream>
+#include <ostream>
+#include <unordered_map>
+#include "../domain/OrderBook.hpp"
 
 namespace TradingEngine::Application {
     class StockMarket: public Interfaces::IMarket {
     public:
-	StockMarket() : orderBook(new Entity::OrderBook()) {}
+	explicit StockMarket(const std::vector<std::string> &stocks) : orderBooks([&stocks]() {
+	    std::unordered_map<std::string,  std::unique_ptr<Entity::OrderBook>> books;
+	    books.reserve(stocks.size());
+	    for(const auto &stock: stocks) {
+		books.emplace(stock, std::make_unique<Entity::OrderBook>());
+	    }
+	    return books;
+	}()) {}
 
-	std::unique_ptr<Entity::OrderBook> orderBook;
+	std::unordered_map<std::string, std::unique_ptr<Entity::OrderBook>> orderBooks;
 	
 	bool validateOrder(const Entity::Order &order) override 
 	{
 	    //TODO: Implement validation
-	    std::cout << "Validating: " << order.getOrderId() << " OK \n";
 	    return true;
 	};
 
-	void routeOrder(const Entity::Order &order) override 
+	void routeOrder(const std::string &stockName, const Entity::Order &order) override 
 	{
+	    std::cout << stockName << " | " << order.getPrice() << " | " << order.getQuantity() << " | " << order.getTimeStamp() << std::endl; 
 	    if (validateOrder(order)) {
-		orderBook->addOrder(std::move(order));
+		orderBooks[stockName]->addOrder(order);
 	    }
 	};
     };

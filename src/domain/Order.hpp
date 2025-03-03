@@ -2,6 +2,7 @@
 #include "./OrderType.hpp"
 #include <atomic>
 #include <cassert>
+#include <chrono>
 #include <cstdint>
 
 namespace TradingEngine::Entity {
@@ -13,8 +14,7 @@ public:
 	    OrderType type,
 	    uint64_t quantity,
 	    double price) 
-	: m_id(m_total_orders++), m_type(type), m_quantity(quantity), m_price(price) 
-	{ 
+	: m_id(m_total_orders++), m_type(type), m_quantity(quantity), m_price(price), m_timestamp(std::chrono::utc_clock::now()) { 
 	    assert(quantity > 0 && "Order quantity needs to be greater than zero");
 	}
 
@@ -22,6 +22,8 @@ public:
 	const uint64_t getOrderId() const { return m_id; } 
 	const double getTotalPrice() const { return m_quantity * m_price; }
 	const double getPrice() const { return m_price; }
+	const uint64_t getQuantity() const { return m_quantity; } 
+	const std::chrono::time_point<std::chrono::utc_clock> getTimeStamp() const { return m_timestamp; }
 
 	void setQuantity(const uint64_t newQuantity) {
 	    assert(newQuantity > 0);
@@ -34,6 +36,7 @@ private:
 	OrderType m_type;
 	uint64_t m_quantity;
 	double m_price;
+	std::chrono::time_point<std::chrono::utc_clock> m_timestamp;
     };
 
 }
